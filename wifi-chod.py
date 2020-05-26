@@ -1,13 +1,13 @@
-
+from pythonping import ping
 import os
-os.add_dll_directory("C:\\Program Files\\VideoLAN\\VLC")
+import platform
+if platform.system() == "Windows":
+  os.add_dll_directory("C:\\Program Files\\VideoLAN\\VLC")
 import vlc
 from time import sleep
-import socket
 def internet_on():
-      hostname = socket.gethostname()
-      ip_address = socket.gethostbyname(hostname)
-      if ip_address == "127.0.0.1":
+      response_list = ping('8.8.8.8', size=10, count=1)
+      if response_list.rtt_avg_ms > 1999:
         return False
       else:
         return True
@@ -17,9 +17,9 @@ while True:
     sleep(600)
   internet_check = internet_on()
   if not internet_check:
-    print("hi")
-    p = vlc.MediaPlayer("song.mp3")
+    p = vlc.MediaPlayer(os.getcwd() + "/song.mp3")
     p.play()
     sleep(12.330)
     repeat_counter+=1
-
+  else:
+    repeat_counter = 0
