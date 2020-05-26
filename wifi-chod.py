@@ -17,7 +17,8 @@ while True:
     sleep(600)
   internet_check = internet_on()
   if not internet_check:
-    p = vlc.MediaPlayer("C:/Users/yomaa/Downloads/song.mp3")
+    print("hi")
+    p = vlc.MediaPlayer("song.mp3")
     p.play()
     sleep(12.330)
     repeat_counter+=1
